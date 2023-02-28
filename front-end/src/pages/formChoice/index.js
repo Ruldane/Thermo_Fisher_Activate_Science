@@ -97,7 +97,6 @@ export default function ChoiceForm() {
   const handleRegisterChange = (event) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
-    console.log(user);
   };
 
   const RegisterValidation = Yup.object({
@@ -136,7 +135,7 @@ export default function ChoiceForm() {
   const registerSubmit = async () => {
           try {
               const { data } = await axios.post(
-                  `${process.env.REACT_APP_BACKEND_URL}/registerActivateScience`,
+                  `${process.env.REACT_APP_BACKEND_URL}/submitActivateScience`,
                   {"emailAddress": emailAddress, "accountNumber": Account_Number, "firstName": firstName, "lastName": lastName, "company": company, "businessPhone": businessPhone, "address1": address1,
                   "city": city, "address2": address2, "zipPostal": zipPostal, "country": country, "marketingCountry": marketingCountry, "locale": locale, "language": language,
                       "comments": comments, "supplierEvent": supplier, "requestType": requestType},

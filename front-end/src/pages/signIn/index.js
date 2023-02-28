@@ -5,42 +5,28 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import axios from "axios";
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
 
-    let formdata = new FormData();
-
-    formdata.append("emailAddress", data.get("emailAddress"));
-    formdata.append("accountNumber", data.get("accountNumber"));
-    formdata.append("firstName", data.get("firstName"));
-    formdata.append("lastName", data.get("lastName"));
-    formdata.append("company", data.get("company"));
-    formdata.append("businessPhone", data.get("businessPhone"));
-    formdata.append("address1", data.get("address1"));
-    formdata.append("city", data.get("city"));
-    formdata.append("address2", data.get("address2"));
-    formdata.append("zipPostal", data.get("zipPostal"));
-    formdata.append("country", data.get("country"));
-    formdata.append("marketingCountry", data.get("marketingCountry"));
-    formdata.append("locale", data.get("locale"));
-    formdata.append("language", data.get("language"));
-
-    let requestOptions = {
-      method: "POST",
-      body: formdata,
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://ebiz.thermofisher.com/EU/NLSU/2.0/index.php?action=submitInscriptionActivateScience",
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+      try {
+          const { data } = await axios.post(
+              `${process.env.REACT_APP_BACKEND_URL}/registerActivateScience`,
+              { "emailAddress": formData.get("emailAddress"), "accountNumber":  formData.get("accountNumber"),
+              "firstName": formData.get("firstName"), "lastName": formData.get("lastName"), "company": formData.get("company"),
+              "businessPhone": formData.get("businessPhone"), "address1": formData.get("address1"),
+              "city": formData.get("city"), "address2": formData.get("address2"), "zipPostal": formData.get("zipPostal"),
+              "country": formData.get("country"),
+              "marketingCountry": formData.get("marketingCountry"), "locale": formData.get("locale"),
+              "language": formData.get("language")},
+          );
+          console.log(data);
+      } catch (error) {
+          console.error(error);
+      }
   };
 
   return (
@@ -94,7 +80,7 @@ export default function SignIn() {
             fullWidth
             name="accountNumber"
             label="Numéro de compte Thermofisher"
-            type="number"
+            type="text"
             id="accountNumber"
           />
           <TextField
@@ -112,7 +98,7 @@ export default function SignIn() {
             fullWidth
             id="lastName"
             label="Last Name"
-            name="Nom"
+            name="lastName"
             autoFocus
           />
           <TextField
@@ -164,14 +150,14 @@ export default function SignIn() {
             type="text"
           />
           <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="zipPostal"
-            label="Code postal"
-            name="zipPostal"
-            autoFocus
-            type="number"
+              margin="normal"
+              required
+              fullWidth
+              id="zipPostal"
+              label="Code postal"
+              name="zipPostal"
+              autoFocus
+              type="text"
           />
           <TextField
             margin="normal"
@@ -179,7 +165,7 @@ export default function SignIn() {
             fullWidth
             id="country"
             label="Country"
-            name="Pays"
+            name="country"
             autoFocus
             type="text"
           />

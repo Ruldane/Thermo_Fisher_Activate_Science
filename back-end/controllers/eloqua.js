@@ -43,14 +43,12 @@ exports.getUserByEmail = async (req, res) => {
     res.json(data);
 }
 
-exports.registerActivateScience = async (req, res) => {
+exports.submitActivateScience = async (req, res) => {
     const { emailAddress, accountNumber,  firstName, lastName,
         company, businessPhone, address1, city,
         address2, zipPostal, country, marketingCountry, locale,
         language, comments, supplierEvent, requestType
     } = req.body;
-
-    console.log(comments);
 
     var options = {
         'method': 'POST',
@@ -75,6 +73,41 @@ exports.registerActivateScience = async (req, res) => {
             'comments': comments,
             'supplierEvent': supplierEvent,
             'requestType': requestType
+        }
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body);
+    });
+}
+
+exports.registerActivateScience = async (req, res) => {
+    const { emailAddress, accountNumber,  firstName, lastName,
+        company, businessPhone, address1, city,
+        address2, zipPostal, country, marketingCountry, locale,
+        language
+    } = req.body;
+
+    var options = {
+        'method': 'POST',
+        'url': 'https://ebiz.thermofisher.com/EU/NLSU/2.0/index.php?action=submitInscriptionActivateScience',
+        'headers': {
+        },
+        formData: {
+            'emailAddress': emailAddress,
+            'accountNumber': accountNumber,
+            'firstName': firstName,
+            'lastName': lastName,
+            'company': company,
+            'businessPhone': businessPhone,
+            'address1': address1,
+            'city': city,
+            'address2': address2,
+            'zipPostal': zipPostal,
+            'country': "country",
+            'marketingCountry': marketingCountry,
+            'locale': locale,
+            'language': language,
         }
     };
     request(options, function (error, response) {

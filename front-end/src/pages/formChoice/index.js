@@ -191,7 +191,7 @@ export default function ChoiceForm() {
           <Form className="register_form">
             <Box sx={{ width: "90%", mt: 2, mb: 2 }}>
               <FormControl fullWidth>
-                <InputLabel>Request Type</InputLabel>
+                <InputLabel>Requête</InputLabel>
                 <Select
                   value={requestType}
                   label="Request Type"

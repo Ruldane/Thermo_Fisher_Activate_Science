@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -125,7 +125,7 @@ export default function SignIn() {
             required
             fullWidth
             id="lastName"
-            label="Last Name"
+            label="Nom"
             name="lastName"
             autoFocus
             onChange={handleChange}
@@ -198,50 +198,27 @@ export default function SignIn() {
             required
             fullWidth
             id="country"
-            label="Country"
+            label="Pays"
             name="country"
             autoFocus
             type="text"
             onChange={handleChange}
           />
-          {/*<TextField*/}
-          {/*  margin="normal"*/}
-          {/*  required*/}
-          {/*  fullWidth*/}
-          {/*  id="marketingCountry"*/}
-          {/*  label="Pays de marketing"*/}
-          {/*  name="marketingCountry"*/}
-          {/*  autoFocus*/}
-          {/*  type="text"*/}
-          {/*/>*/}
-          {/*<TextField*/}
-          {/*  margin="normal"*/}
-          {/*  required*/}
-          {/*  fullWidth*/}
-          {/*  id="locale"*/}
-          {/*  label="Local"*/}
-          {/*  name="locale"*/}
-          {/*  autoFocus*/}
-          {/*  type="text"*/}
-          {/*/>*/}
-          {/*<TextField*/}
-          {/*  margin="normal"*/}
-          {/*  required*/}
-          {/*  fullWidth*/}
-          {/*  id="language"*/}
-          {/*  label="Langage"*/}
-          {/*  name="language"*/}
-          {/*  autoFocus*/}
-          {/*  type="text"*/}
-          {/*/>*/}
+            {!formData.title || !formData.emailAddress || !formData.firstName || !formData.lastName
+                || !formData.company || !formData.address1 || !formData.city || !formData.zipPostal || !formData.country  ?
+                <Typography sx={{ mt: 2, color: "red", pb: 2 }} variant="body1" align="center">Vous devez remplir les champs obligatoires</Typography>
+                : undefined}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={!formData.title || !formData.emailAddress || !formData.firstName || !formData.lastName
+                || !formData.company || !formData.address1 || !formData.city || !formData.zipPostal || !formData.country }
           >
             S'inscrire
           </Button>
+
         </Box>
       </Box>
     </Container>

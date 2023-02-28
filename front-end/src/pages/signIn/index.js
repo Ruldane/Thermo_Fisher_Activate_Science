@@ -7,9 +7,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function SignIn() {
     const [formData, setFormData] = useState({});
+    const navigate = useNavigate();
 
     const handleChange = (e) => {{
         setFormData({
@@ -25,23 +27,27 @@ export default function SignIn() {
               `${process.env.REACT_APP_BACKEND_URL}/registerActivateScience`,
               {
                   "emailAddress": formData.emailAddress,
-                  "accountNumber": formData.accountNumber,
+                  "accountNumber": formData.accountNumber ? formData.accountNumber : "no number account",
                   "firstName": formData.firstName,
                   "lastName": formData.lastName,
                   "company": formData.company,
-                  "businessPhone": formData.businessPhone,
+                  "businessPhone": formData.businessPhone ? formData.businessPhone : "no phone number",
                   "address1": formData.address1,
                   "city": formData.city,
-                  "address2": formData.address2,
+                  "address2": formData.address2 ? formData.address2 : "no address 2",
                   "zipPostal": formData.zipPostal,
                   "country": formData.country,
                   "title": formData.title
               }
           );
-          console.log(data);
+          if(data?.confirmation) {
+              navigate(`/qrcode/${formData.emailAddress}`);
+          }
       } catch (error) {
           console.error(error);
+          return;
       }
+
   };
 
   return (
@@ -206,7 +212,7 @@ export default function SignIn() {
           />
             {!formData.title || !formData.emailAddress || !formData.firstName || !formData.lastName
                 || !formData.company || !formData.address1 || !formData.city || !formData.zipPostal || !formData.country  ?
-                <Typography sx={{ mt: 2, color: "red", pb: 2 }} variant="body1" align="center">Vous devez remplir les champs obligatoires</Typography>
+                <Typography sx={{ mt: 2, color: "red", pb: 2 }} variant="body1" align="center">Veuillez remplir les champs obligatoires</Typography>
                 : undefined}
           <Button
             type="submit"

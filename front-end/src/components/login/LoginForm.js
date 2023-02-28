@@ -53,7 +53,7 @@ export default function LoginForm() {
         Sanofi Marcy l'Etoile
         <br />
       </Typography>
-      <Typography align="center">16 mars 2023 de 9h à 17h</Typography>
+      <Typography variant="body2" align="center">16 mars 2023 de 9h à 17h</Typography>
       <Typography sx={{ mt: 3 }} align="center">
         Retrouvez les dernières innovations <br />
         de nos fournisseurs partenaires,
@@ -72,7 +72,7 @@ export default function LoginForm() {
         merci de vous inscrire en saisissant votre adresse e-mail ci-dessous.
       </Typography>
       <Typography sx={{ mt: 2 }} align="center">
-        Vous recevrez par e-mail un lien pour télécharger votre code QR unique
+        Vous recevrez par e-mail un lien pour télécharger votre QR code unique
         <br />à présenter le jour de l’évènement.
       </Typography>
 

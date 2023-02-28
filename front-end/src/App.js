@@ -12,7 +12,7 @@ import AdminForm from "./pages/adminForm";
 import SelectSupplier from "./pages/selectSupplier";
 import SignIn from "./pages/signIn";
 import CheckIfUserExist from "./helpers/checkIfUserExist";
-
+import './App.css';
 function App() {
   // const get = async () => {
   //   const res = await fetch('http://localhost:8000');

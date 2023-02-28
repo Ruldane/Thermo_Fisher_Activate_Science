@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,20 +9,34 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 
 export default function SignIn() {
+    const [formData, setFormData] = useState({});
+
+    const handleChange = (e) => {{
+        setFormData({
+          ...formData,
+            [e.target.name]: e.target.value
+        });
+    }}
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
 
       try {
           const { data } = await axios.post(
               `${process.env.REACT_APP_BACKEND_URL}/registerActivateScience`,
-              { "emailAddress": formData.get("emailAddress"), "accountNumber":  formData.get("accountNumber"),
-              "firstName": formData.get("firstName"), "lastName": formData.get("lastName"), "company": formData.get("company"),
-              "businessPhone": formData.get("businessPhone"), "address1": formData.get("address1"),
-              "city": formData.get("city"), "address2": formData.get("address2"), "zipPostal": formData.get("zipPostal"),
-              "country": formData.get("country"),
-              "marketingCountry": formData.get("marketingCountry"), "locale": formData.get("locale"),
-              "language": formData.get("language")},
+              {
+                  "emailAddress": formData.emailAddress,
+                  "accountNumber": formData.accountNumber,
+                  "firstName": formData.firstName,
+                  "lastName": formData.lastName,
+                  "company": formData.company,
+                  "businessPhone": formData.businessPhone,
+                  "address1": formData.address1,
+                  "city": formData.city,
+                  "address2": formData.address2,
+                  "zipPostal": formData.zipPostal,
+                  "country": formData.country,
+                  "title": formData.title
+              }
           );
           console.log(data);
       } catch (error) {
@@ -52,19 +67,30 @@ export default function SignIn() {
             objectPosition: "center",
           }}
         />
-        <Typography component="h5" variant="h5">
-          S'inscrire à l'évènement Sanofi Marcy l'Etoile Activate Science.
+          <Typography sx={{ mt: -2, color: "black", pb: 2 }} variant="body1" align="center">
+              Inscrivez-vous dès maintenant <br />  à l'évènement Activate Science<br />Sanofi Marcy l'Etoile
+            <br />
         </Typography>
       </Container>
       <Box
         sx={{
-          marginTop: 30,
+          marginTop: 24,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="title"
+                label="Civilité"
+                name="title"
+                autoFocus
+                onChange={handleChange}
+            />
           <TextField
             margin="normal"
             required
@@ -73,15 +99,16 @@ export default function SignIn() {
             label="Adresse mail"
             name="emailAddress"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
-            required
             fullWidth
             name="accountNumber"
             label="Numéro de compte Thermofisher"
             type="text"
             id="accountNumber"
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -91,6 +118,7 @@ export default function SignIn() {
             label="Prénom"
             name="firstName"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -100,6 +128,7 @@ export default function SignIn() {
             label="Last Name"
             name="lastName"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -109,16 +138,17 @@ export default function SignIn() {
             label="Entreprise"
             name="company"
             autoFocus
-          />{" "}
+            onChange={handleChange}
+          />
           <TextField
             margin="normal"
-            required
             fullWidth
             id="businessPhone"
             label="Téléphone de l'entreprise"
             name="businessPhone"
             autoFocus
             type="number"
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -129,6 +159,7 @@ export default function SignIn() {
             name="address1"
             autoFocus
             type="text"
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -139,6 +170,7 @@ export default function SignIn() {
             name="city"
             autoFocus
             type="text"
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -148,6 +180,7 @@ export default function SignIn() {
             name="address2"
             autoFocus
             type="text"
+            onChange={handleChange}
           />
           <TextField
               margin="normal"
@@ -158,6 +191,7 @@ export default function SignIn() {
               name="zipPostal"
               autoFocus
               type="text"
+              onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -168,37 +202,38 @@ export default function SignIn() {
             name="country"
             autoFocus
             type="text"
+            onChange={handleChange}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="marketingCountry"
-            label="Pays de marketing"
-            name="marketingCountry"
-            autoFocus
-            type="text"
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="locale"
-            label="Local"
-            name="locale"
-            autoFocus
-            type="text"
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="language"
-            label="Langage"
-            name="language"
-            autoFocus
-            type="text"
-          />
+          {/*<TextField*/}
+          {/*  margin="normal"*/}
+          {/*  required*/}
+          {/*  fullWidth*/}
+          {/*  id="marketingCountry"*/}
+          {/*  label="Pays de marketing"*/}
+          {/*  name="marketingCountry"*/}
+          {/*  autoFocus*/}
+          {/*  type="text"*/}
+          {/*/>*/}
+          {/*<TextField*/}
+          {/*  margin="normal"*/}
+          {/*  required*/}
+          {/*  fullWidth*/}
+          {/*  id="locale"*/}
+          {/*  label="Local"*/}
+          {/*  name="locale"*/}
+          {/*  autoFocus*/}
+          {/*  type="text"*/}
+          {/*/>*/}
+          {/*<TextField*/}
+          {/*  margin="normal"*/}
+          {/*  required*/}
+          {/*  fullWidth*/}
+          {/*  id="language"*/}
+          {/*  label="Langage"*/}
+          {/*  name="language"*/}
+          {/*  autoFocus*/}
+          {/*  type="text"*/}
+          {/*/>*/}
           <Button
             type="submit"
             fullWidth

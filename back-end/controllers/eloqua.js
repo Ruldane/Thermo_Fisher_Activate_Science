@@ -84,8 +84,7 @@ exports.submitActivateScience = async (req, res) => {
 exports.registerActivateScience = async (req, res) => {
     const { emailAddress, accountNumber,  firstName, lastName,
         company, businessPhone, address1, city,
-        address2, zipPostal, country, marketingCountry, locale,
-        language
+        address2, zipPostal, country, title,
     } = req.body;
 
     var options = {
@@ -104,10 +103,8 @@ exports.registerActivateScience = async (req, res) => {
             'city': city,
             'address2': address2,
             'zipPostal': zipPostal,
-            'country': "country",
-            'marketingCountry': marketingCountry,
-            'locale': locale,
-            'language': language,
+            'country': country,
+            'title': title,
         }
     };
     request(options, function (error, response) {

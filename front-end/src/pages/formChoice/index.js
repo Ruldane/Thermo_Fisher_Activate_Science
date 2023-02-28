@@ -1,22 +1,27 @@
-import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import RegisterInput from "../../components/inputs/registerInput";
+import {Form, Formik} from "formik";
+import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import RingLoader from "react-spinners/RingLoader";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { InputLabel, useMediaQuery } from "@mui/material";
+import {InputLabel, useMediaQuery} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 export default function ChoiceForm() {
+    const [open, setOpen] = useState(false);
   // get email and supplier from url using react-router
   const { email } = useParams();
   const { supplier } = useParams();
@@ -33,16 +38,13 @@ export default function ChoiceForm() {
     zipPostal: "",
     city: "",
     country: "",
-    marketingCountry: "",
-    locale: "",
-    language: "",
     comments: "",
     quote: "",
   };
 
   const [user, setUser] = useState(userInfos);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState("hello");
   const [loading, setLoading] = useState(false);
   const [requestType, setRequestType] = React.useState("");
 
@@ -87,9 +89,6 @@ export default function ChoiceForm() {
     zipPostal,
     city,
     country,
-    marketingCountry,
-    locale,
-    language,
     comments,
       Account_Number
   } = user;
@@ -132,17 +131,32 @@ export default function ChoiceForm() {
     //   .max(36, "Password can't be longer than 36 characters"),
   });
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+
   const registerSubmit = async () => {
+      setLoading(true);
           try {
               const { data } = await axios.post(
                   `${process.env.REACT_APP_BACKEND_URL}/submitActivateScience`,
-                  {"emailAddress": emailAddress, "accountNumber": Account_Number, "firstName": firstName, "lastName": lastName, "company": company, "businessPhone": businessPhone, "address1": address1,
-                  "city": city, "address2": address2, "zipPostal": zipPostal, "country": country, "marketingCountry": marketingCountry, "locale": locale, "language": language,
-                      "comments": comments, "supplierEvent": supplier, "requestType": requestType},
+                  { "emailAddress": emailAddress, "accountNumber": Account_Number ? Account_Number : "no account number",
+                      "firstName": firstName, "lastName": lastName, "company": company,
+                      "businessPhone": businessPhone ? businessPhone : "no business phone", "address1": address1,
+                  "city": city, "address2": address2 ? address2 : "no address 2", "zipPostal": zipPostal, "country": country,
+                      "comments": comments ? comments : "no comment", "supplierEvent": supplier, "requestType": requestType},
               );
-          console.log(data);
+              setLoading(false);
+              if(data?.confirmation) {
+                setOpen(true);
+              }
           } catch (error) {
-              console.error(error);
+              setLoading(false);
           }
   };
 
@@ -178,9 +192,6 @@ export default function ChoiceForm() {
           zipPostal,
           city,
           country,
-          marketingCountry,
-          locale,
-          language,
         }}
         //validationSchema={RegisterValidation}
         onSubmit={() => {
@@ -232,11 +243,14 @@ export default function ChoiceForm() {
               </button>
             </div>
             <RingLoader color="#18f6f2" loading={loading} size={150} />
-            {error && <div className="error_text">{error}</div>}
-            {error && <div className="success_text">{success}</div>}
           </Form>
         )}
       </Formik>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                Merci d'avoir participé à Sanofi Marcy l'Etoile Activate Science. {`${firstName} ${lastName}`}
+            </Alert>
+        </Snackbar>
     </Container>
   );
 }

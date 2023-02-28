@@ -46,8 +46,7 @@ exports.getUserByEmail = async (req, res) => {
 exports.submitActivateScience = async (req, res) => {
     const { emailAddress, accountNumber,  firstName, lastName,
         company, businessPhone, address1, city,
-        address2, zipPostal, country, marketingCountry, locale,
-        language, comments, supplierEvent, requestType
+        address2, zipPostal, country, comments, supplierEvent, requestType
     } = req.body;
 
     var options = {
@@ -67,17 +66,15 @@ exports.submitActivateScience = async (req, res) => {
             'address2': address2,
             'zipPostal': zipPostal,
             'country': country,
-            'marketingCountry': "marketingCountry",
-            'locale': "locale",
-            'language': "language",
             'comments': comments,
             'supplierEvent': supplierEvent,
-            'requestType': requestType
+            'requestType': requestType,
+            'title': 'title'
         }
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
-        console.log(response.body);
+        res.send(response.body);
     });
 }
 

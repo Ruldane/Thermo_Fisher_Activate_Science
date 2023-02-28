@@ -224,7 +224,6 @@ export default function SignIn() {
           >
             S'inscrire
           </Button>
-
         </Box>
       </Box>
     </Container>

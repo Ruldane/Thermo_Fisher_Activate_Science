@@ -1,6 +1,7 @@
 {
-  "name": "frontend",
+  "name": "sanofi-marcy-etoile-activate-science",
   "version": "0.1.0",
+  "homepage": "https://fishersci.eu/activate-science/20481",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",

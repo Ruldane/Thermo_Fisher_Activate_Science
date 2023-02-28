@@ -141,35 +141,6 @@ export default function AdminForm() {
       console.error(error);
       return;
     }
-
-    console.log(user);
-    let formdata = new FormData();
-    formdata.append("emailAddress", emailAddress);
-    formdata.append("accountNumber", accountNumber);
-    formdata.append("firstName", firstName);
-    formdata.append("lastName", lastName);
-    formdata.append("company", company);
-    formdata.append("businessPhone", businessPhone);
-    formdata.append("address1", address1);
-    formdata.append("city", city);
-    formdata.append("address2", address2);
-    formdata.append("zipPostal", zipPostal);
-    formdata.append("country", country);
-    formdata.append("title", "title");
-
-    let requestOptions = {
-      method: "POST",
-      body: formdata,
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://ebiz.thermofisher.com/EU/NLSU/2.0/index.php?action=submitInscriptionActivateScience",
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
   };
 
   return (

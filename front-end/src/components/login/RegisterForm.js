@@ -52,7 +52,6 @@ export default function RegisterForm({ setVisible }) {
   const handleRegisterChange = (event) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
-    console.log(user);
   };
 
   const RegisterValidation = Yup.object({
@@ -89,7 +88,6 @@ export default function RegisterForm({ setVisible }) {
   });
 
   const registerSubmit = async () => {
-    console.log(user);
     let formdata = new FormData();
     formdata.append("emailAddress", emailAddress);
     formdata.append("accountNumber", accountNumber);

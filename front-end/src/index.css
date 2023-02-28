@@ -59,13 +59,13 @@ a {
 .grey_btn {
   border: none;
   outline: none;
-  background: var(--bg-secondary);
+  background: gray;
   padding: 8.5px 12px;
   border-radius: 7px;
   font-family: inherit;
   font-weight: 600;
   font-size: 14px;
-  color: #111;
+  color: #FFF;
   display: flex;
   align-items: center;
   justify-content: center;

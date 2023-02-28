@@ -222,9 +222,12 @@ export default function ChoiceForm() {
                 resize: "none",
               }}
             ></textarea>
-
+              {!requestType  ?
+                  <Typography sx={{ mt: 2, color: "red"}} variant="body1" align="center">Vous devez remplir le champ obligatoire</Typography>
+                  : undefined}
             <div className="reg_btn_wrapper">
-              <button className="blue_btn open_signup">
+
+              <button    disabled={!requestType} className={!requestType ? "grey_btn" : "blue_btn open_signup"} >
                 Validez votre demande
               </button>
             </div>

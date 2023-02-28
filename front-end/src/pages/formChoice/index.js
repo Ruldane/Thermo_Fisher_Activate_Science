@@ -19,7 +19,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 export default function ChoiceForm() {
     const [open, setOpen] = useState(false);
   // get email and supplier from url using react-router
@@ -135,10 +134,8 @@ export default function ChoiceForm() {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpen(false);
     };
-
 
   const registerSubmit = async () => {
       setLoading(true);

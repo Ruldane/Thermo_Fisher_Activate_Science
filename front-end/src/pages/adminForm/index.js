@@ -1,17 +1,22 @@
-import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import RegisterInput from "../../components/inputs/registerInput";
+import {Form, Formik} from "formik";
+import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import RingLoader from "react-spinners/RingLoader";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useMediaQuery } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import {useMediaQuery} from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function AdminForm() {
   // get email from url using react-router
+    const [open, setOpen] = useState(false);
   const { email } = useParams();
   const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
@@ -43,9 +48,6 @@ export default function AdminForm() {
     zipPostal: "",
     city: "",
     country: "",
-    marketingCountry: "",
-    locale: "",
-    language: "",
   };
 
   const [user, setUser] = useState(userInfos);
@@ -65,9 +67,6 @@ export default function AdminForm() {
     zipPostal,
     city,
     country,
-    marketingCountry,
-    locale,
-    language,
   } = user;
 
   const handleRegisterChange = (event) => {
@@ -108,7 +107,41 @@ export default function AdminForm() {
     //   .max(36, "Password can't be longer than 36 characters"),
   });
 
-  const registerSubmit = async () => {
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+
+    const registerSubmit = async () => {
+    try {
+      const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/registerActivateScience`,
+          {
+            "emailAddress": emailAddress,
+            "accountNumber": accountNumber ? accountNumber : "no number account",
+            "firstName": firstName,
+            "lastName": lastName,
+            "company": company,
+            "businessPhone": businessPhone ? businessPhone : "no phone number",
+            "address1": address1,
+            "city": city,
+            "address2": address2 ? address2 : "no address 2",
+            "zipPostal": zipPostal,
+            "country": country,
+            "title": "title"
+          }
+      );
+      if(data?.confirmation) {
+          setOpen(true);
+      }
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+
     console.log(user);
     let formdata = new FormData();
     formdata.append("emailAddress", emailAddress);
@@ -122,9 +155,7 @@ export default function AdminForm() {
     formdata.append("address2", address2);
     formdata.append("zipPostal", zipPostal);
     formdata.append("country", country);
-    formdata.append("marketingCountry", marketingCountry);
-    formdata.append("locale", locale);
-    formdata.append("language", language);
+    formdata.append("title", "title");
 
     let requestOptions = {
       method: "POST",
@@ -176,9 +207,6 @@ export default function AdminForm() {
             zipPostal,
             city,
             country,
-            marketingCountry,
-            locale,
-            language,
           }}
           //validationSchema={RegisterValidation}
           onSubmit={() => {
@@ -198,6 +226,11 @@ export default function AdminForm() {
             </Form>
           )}
         </Formik>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                  Merci d'être venu participé à Sanofi Marcy l'Etoile Activate Science {`${firstName} ${lastName}`}
+              </Alert>
+          </Snackbar>
       </Container>
     </div>
   );

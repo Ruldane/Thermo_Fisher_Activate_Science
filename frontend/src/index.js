@@ -17,9 +17,7 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
         {/*<Router>*/}
-      <Router basename="/activate-science/20841">
         <App />
-      </Router>
     </Provider>
   </ThemeProvider>,
   document.getElementById("root")

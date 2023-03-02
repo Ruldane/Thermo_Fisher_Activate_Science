@@ -22,6 +22,7 @@ function App() {
   // get();
   const { user } = useSelector((state) => ({ ...state }));
   return (
+      <BrowserRouter basename="/activate-science/20481">
       <Routes>
         <Route element={<LoggedInRoutes />}>
           <Route path="/" element={<Home />} />
@@ -56,6 +57,7 @@ function App() {
               exact
           />
       </Routes>
+      </BrowserRouter>
   );
 }
 

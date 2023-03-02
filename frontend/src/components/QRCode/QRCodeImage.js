@@ -1,14 +1,13 @@
 import "./style.css";
 import QRCode from "qrcode";
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { createTheme } from "@mui/material/styles";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { useMediaQuery } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import {useMediaQuery} from "@mui/material";
 import Button from "@mui/material/Button";
+import Background from '../../images/Background.png'
 
 const QRCodeImage = () => {
   let { email } = useParams();
@@ -41,7 +40,7 @@ const QRCodeImage = () => {
   return (
     <Container maxWidth="md" sx={{ mb: 5, mt: 1 }}>
       <img
-        src="../../images/activate-science.jpg"
+        src={Background} alt="Background"
         style={{
           width: "100%",
           height: "100%",

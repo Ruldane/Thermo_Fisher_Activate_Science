@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
-
+import Background from "../../images/Background.png"
 const Choice = () => {
   const { email } = useParams();
   const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
@@ -14,7 +14,7 @@ const Choice = () => {
   return (
     <Container maxWidth="md" sx={{ mb: 5, mt: 1 }}>
       <img
-        src="../../images/activate-science.jpg"
+        src={Background} alt="Background"
         style={{
           width: "100%",
           height: "100%",
@@ -24,7 +24,7 @@ const Choice = () => {
         }}
       />
       <Typography sx={{ mt: 5, color: "black" }} variant="body1" align="center">
-        Selectionnez un choix ci-dessous:
+        vSelectionnez un choix ci-dessous:
       </Typography>
       <Stack
         direction="column"

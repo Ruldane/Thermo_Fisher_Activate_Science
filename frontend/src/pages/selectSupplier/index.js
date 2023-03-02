@@ -9,6 +9,7 @@ import { useMediaQuery } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Background from '../../images/Background.png'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -63,7 +64,7 @@ const SelectSupplier = () => {
   return (
     <Container maxWidth="md" sx={{ mb: 5, mt: 1 }}>
       <img
-        src="../../images/activate-science.jpg"
+        src={Background} alt="Background"
         style={{
           width: "100%",
           height: "100%",

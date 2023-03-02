@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-
+import Background from '../../images/Background.png'
 export default function SignIn() {
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
@@ -64,7 +64,7 @@ export default function SignIn() {
         }}
       >
         <img
-          src="../../images/activate-science.jpg"
+          src={Background} alt="background"
           style={{
             width: "100%",
             height: "100%",
@@ -79,7 +79,7 @@ export default function SignIn() {
       </Container>
       <Box
         sx={{
-          marginTop: 24,
+          marginTop: 30,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

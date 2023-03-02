@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
+import Background from '../../images/Background.png';
 
 export default function LoginForm() {
   const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
@@ -36,7 +37,7 @@ export default function LoginForm() {
   return (
     <Container maxWidth="md" sx={{ mb: 5 }}>
       <img
-        src="../../images/activate-science.jpg"
+        src={Background} alt="background"
         style={{
           width: "100%",
           height: "100%",

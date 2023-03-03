@@ -33,7 +33,7 @@ function App() {
         </Route>
         <Route path="/qrcode/:email" element={<QRCodeImage />} exact />
         <Route path="/signin/:email" element={<SignIn />} exact />
-        <Route path="/signin" element={<SignIn />} exact />
+
         <Route path="/choice/:email" element={<Choice />} exact />
         <Route
           path="/choiceSupplier/:email"

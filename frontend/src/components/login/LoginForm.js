@@ -53,7 +53,7 @@ export default function LoginForm() {
       >
           Bienvenue sur la page d'inscription de l’Activate Science Sanofi Marcy l'Etoile.
       </Typography>
-      <Typography sx={{mt:1}} variant="body2" align="center">Cet événement aura lieu le 16 mars 2023 de 9h à 17h, bâtiment X Salles Polaris et Andromède</Typography>
+      <Typography sx={{mt:1}} variant="body2" align="center">Cet événement aura lieu le  16 mars 2023 de 9h à 17h, bâtiment X Salles Polaris et Andromède</Typography>
       <Typography sx={{ mt: 3 }} align="center">
           C'est une excellente occasion pour vous d'en apprendre davantage sur les dernières innovations de nos partenaires,
           fournisseurs ainsi que d'acquérir une expérience de première main sur les équipements, consommables et réactifs présentés.
@@ -63,9 +63,9 @@ export default function LoginForm() {
           fournisseur Thermo Scientific qui se déroulera de 10h30 à 11h30 (salle Auditorium Bat X Sud).
       </Typography>
       <Typography sx={{ mt: 2 }} align="center">
-          Des rafraichissements seront proposés tout au long de la journée.
-          Veuillez vous pré-inscrire en saisissant votre adresse e-mail ci-dessous.
-          Cela vous permettra d'obtenir votre code QR unique à utiliser le jour de l’évènement.
+          Des rafraichissements seront proposés <br />tout au long de la journée. <br />
+          <br />Veuillez vous pré-inscrire en saisissant votre adresse e-mail ci-dessous.
+          Cela vous permettra d'obtenir votre QR code unique à utiliser le jour de l’évènement.
       </Typography>
 
       <Box component="form" onSubmit={submitHandler}>

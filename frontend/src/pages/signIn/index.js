@@ -51,6 +51,7 @@ export default function SignIn() {
                 `${process.env.REACT_APP_BACKEND_URL}/getUserByEmail`,
                 {"email": email},
             );
+            console.log(data, "dataaaaaaa");
             setUser(data);
         } catch (error) {
             console.error(error);

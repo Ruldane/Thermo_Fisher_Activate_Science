@@ -21,7 +21,7 @@ export default function LoginForm() {
     setLoading(true);
     if (isValidEmail(email)) {
       setLoading(false);
-      navigate(`/checkIfUserExist/${email}`);
+      navigate(`/signin/${email}`);
     } else {
       setLoading(false);
       setError("Votre mail n'est pas valide");

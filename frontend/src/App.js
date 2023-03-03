@@ -22,7 +22,7 @@ function App() {
   // get();
   const { user } = useSelector((state) => ({ ...state }));
   return (
-      <BrowserRouter basename="/activate-science/20481">
+      <BrowserRouter>
       <Routes>
         <Route element={<LoggedInRoutes />}>
           <Route path="/" element={<Home />} />
@@ -32,8 +32,8 @@ function App() {
           <Route path="/login" element={<Login />} exact />
         </Route>
         <Route path="/qrcode/:email" element={<QRCodeImage />} exact />
+        <Route path="/signin/:email" element={<SignIn />} exact />
         <Route path="/signin" element={<SignIn />} exact />
-
         <Route path="/choice/:email" element={<Choice />} exact />
         <Route
           path="/choiceSupplier/:email"

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,9 +7,27 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Background from '../../images/Background.png'
 export default function SignIn() {
+    const {email} = useParams();
+    const userInfos = {
+        emailAddress: "",
+        Account_Number: "",
+        firstName: "",
+        lastName: "",
+        company: "",
+        businessPhone: "",
+        address1: "",
+        address2: "",
+        zipPostal: "",
+        city: "",
+        country: "",
+        comments: "",
+        quote: "",
+    };
+
+    const [user, setUser] = useState(userInfos);
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
 
@@ -19,6 +37,40 @@ export default function SignIn() {
             [e.target.name]: e.target.value
         });
     }}
+
+    const checkIfUserRegister = async (checkEmail) => {
+        try {
+            const { data } = await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/CheckIfUserPreRegister`);
+            data.elements.map(element => {
+                    if(element['fieldValues'].some(element => element.value === checkEmail)){
+                        navigate(`/qrcode/${email}`);
+                    }
+                }
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        if(email) {
+            checkIfUserRegister(email);
+            getUserByEmail(email);
+        }
+    }, []);
+
+    const getUserByEmail = async () => {
+        try {
+            const { data } = await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/getUserByEmail`,
+                {"email": email},
+            );
+            setUser(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -48,6 +100,13 @@ export default function SignIn() {
           return;
       }
   };
+    useEffect(() => {
+        if(email) {
+            getUserByEmail();
+        }
+
+    }, [email]);
+
 
   return (
     <Container component="main" maxWidth="sm">

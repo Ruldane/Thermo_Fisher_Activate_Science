@@ -9,31 +9,16 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import Background from '../../images/Background.png'
+import {InputLabel} from "@mui/material";
 export default function SignIn() {
     const {email} = useParams();
-    const userInfos = {
-        emailAddress: "",
-        Account_Number: "",
-        firstName: "",
-        lastName: "",
-        company: "",
-        businessPhone: "",
-        address1: "",
-        address2: "",
-        zipPostal: "",
-        city: "",
-        country: "",
-        comments: "",
-        quote: "",
-    };
 
-    const [user, setUser] = useState(userInfos);
-    const [formData, setFormData] = useState({});
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
 
     const handleChange = (e) => {{
-        setFormData({
-          ...formData,
+        setUser({
+          ...user,
             [e.target.name]: e.target.value
         });
     }}
@@ -71,6 +56,8 @@ export default function SignIn() {
             console.error(error);
         }
     };
+
+    console.log(user);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -78,22 +65,22 @@ export default function SignIn() {
           const { data } = await axios.post(
               `${process.env.REACT_APP_BACKEND_URL}/preRegisterActivateScience`,
               {
-                  "emailAddress": formData.emailAddress,
-                  "accountNumber": formData.accountNumber ? formData.accountNumber : "no number account",
-                  "firstName": formData.firstName,
-                  "lastName": formData.lastName,
-                  "company": formData.company,
-                  "businessPhone": formData.businessPhone ? formData.businessPhone : "no phone number",
-                  "address1": formData.address1,
-                  "city": formData.city,
-                  "address2": formData.address2 ? formData.address2 : "no address 2",
-                  "zipPostal": formData.zipPostal,
-                  "country": formData.country,
-                  "title": formData.title
+                  "emailAddress": user.emailAddress,
+                  "accountNumber": user.accountNumber ? user.accountNumber : "no number account",
+                  "firstName": user.firstName,
+                  "lastName": user.lastName,
+                  "company": user.company,
+                  "businessPhone": user.businessPhone ? user.businessPhone : "no phone number",
+                  "address1": user.address1,
+                  "city": user.city,
+                  "address2": user.address2 ? user.address2 : "no address 2",
+                  "zipPostal": user.zipPostal,
+                  "country": user.country,
+                  "title": user.title
               }
           );
           if(data?.confirmation) {
-              navigate(`/qrcode/${formData.emailAddress}`);
+              navigate(`/qrcode/${user.emailAddress}`);
           }
       } catch (error) {
           console.error(error);
@@ -145,131 +132,142 @@ export default function SignIn() {
         }}
       >
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <InputLabel id="test-select-label" required>Civilité</InputLabel>
             <TextField
                 margin="normal"
                 required
                 fullWidth
                 id="title"
-                label="Civilité"
                 name="title"
                 autoFocus
+                value={user.title}
                 onChange={handleChange}
             />
+            <InputLabel id="test-select-label" required>Adresse email</InputLabel>
           <TextField
             margin="normal"
-            required
             fullWidth
             id="emailAddress"
-            label="Adresse mail"
             name="emailAddress"
             autoFocus
             onChange={handleChange}
+            value={user.emailAddress}
           />
+            <InputLabel id="test-select-label">Numéro de compte Thermofisher</InputLabel>
           <TextField
             margin="normal"
             fullWidth
             name="accountNumber"
-            label="Numéro de compte Thermofisher"
             type="text"
             id="accountNumber"
             onChange={handleChange}
+            value={user.Account_Number}
           />
-          <TextField
+            <InputLabel id="test-select-label" required>Prénom</InputLabel>
+            <TextField
             margin="normal"
             required
             fullWidth
             id="firstName"
-            label="Prénom"
             name="firstName"
             autoFocus
+            value={user.firstName}
             onChange={handleChange}
           />
-          <TextField
+            <InputLabel id="test-select-label" required>Nom</InputLabel>
+            <TextField
             margin="normal"
             required
             fullWidth
             id="lastName"
-            label="Nom"
             name="lastName"
             autoFocus
+            value={user.lastName}
             onChange={handleChange}
           />
-          <TextField
+            <InputLabel id="test-select-label" required>Entreprise</InputLabel>
+            <TextField
             margin="normal"
             required
             fullWidth
             id="company"
-            label="Entreprise"
             name="company"
             autoFocus
+            value={user.Company_name}
             onChange={handleChange}
           />
+            <InputLabel id="test-select-label">Téléphone de l'entreprise</InputLabel>
           <TextField
             margin="normal"
             fullWidth
             id="businessPhone"
-            label="Téléphone de l'entreprise"
             name="businessPhone"
             autoFocus
             type="number"
+            value={user.businessPhone}
             onChange={handleChange}
           />
+            <InputLabel id="test-select-label" required>Addresse 1</InputLabel>
           <TextField
             margin="normal"
             required
             fullWidth
             id="address1"
-            label="Addresse 1"
             name="address1"
             autoFocus
             type="text"
+            value={user.address1}
             onChange={handleChange}
           />
+            <InputLabel id="test-select-label" required>Ville</InputLabel>
           <TextField
             margin="normal"
             required
             fullWidth
             id="city"
-            label="Ville"
             name="city"
             autoFocus
             type="text"
+            value={user.city}
             onChange={handleChange}
           />
+            <InputLabel id="test-select-label">Adresse 2</InputLabel>
           <TextField
             margin="normal"
             fullWidth
             id="address2"
-            label="Addresse 2"
             name="address2"
             autoFocus
             type="text"
+            value={user.address2}
             onChange={handleChange}
           />
+            <InputLabel id="test-select-label" required>Code Postal</InputLabel>
           <TextField
               margin="normal"
               required
               fullWidth
               id="zipPostal"
-              label="Code postal"
               name="zipPostal"
               autoFocus
               type="text"
+              value={user.zipPostal}
               onChange={handleChange}
           />
+            <InputLabel id="test-select-label" required>Pays</InputLabel>
           <TextField
             margin="normal"
             required
             fullWidth
             id="country"
-            label="Pays"
-            name="country"
             autoFocus
+            name="country"
             type="text"
+            value={user.country}
             onChange={handleChange}
           />
-            {!formData.title || !formData.emailAddress || !formData.firstName || !formData.lastName
-                || !formData.company || !formData.address1 || !formData.city || !formData.zipPostal || !formData.country  ?
+            { !user.title || !user.emailAddress || !user.firstName || !user.lastName
+                || !user.company || !user.address1 || !user.city || !user.zipPostal   ?
                 <Typography sx={{ mt: 2, color: "red", pb: 2 }} variant="body1" align="center">Veuillez remplir les champs obligatoires</Typography>
                 : undefined}
           <Button
@@ -277,8 +275,8 @@ export default function SignIn() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            disabled={!formData.title || !formData.emailAddress || !formData.firstName || !formData.lastName
-                || !formData.company || !formData.address1 || !formData.city || !formData.zipPostal || !formData.country }
+            disabled={ !user.title || !user.emailAddress || !user.firstName || !user.lastName
+                || !user.company || !user.address1 || !user.city || !user.zipPostal || !user.country }
           >
             S'inscrire
           </Button>

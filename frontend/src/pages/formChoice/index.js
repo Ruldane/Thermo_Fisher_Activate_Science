@@ -207,9 +207,9 @@ export default function ChoiceForm() {
                   label="Request Type"
                   onChange={handleChange}
                 >
-                  <MenuItem value="Quote">Devis</MenuItem>
-                  <MenuItem value="Pricing">Prix</MenuItem>
-                  <MenuItem value="Technical Information">
+                  <MenuItem value="Demande de prix">Prix</MenuItem>
+                  <MenuItem value="Demande de délai">Délai(s)</MenuItem>
+                  <MenuItem value="Demande technique">
                     Information technique
                   </MenuItem>
                 </Select>
@@ -233,7 +233,7 @@ export default function ChoiceForm() {
               }}
             ></textarea>
               {!requestType  ?
-                  <Typography sx={{ mt: 2, color: "red"}} variant="body1" align="center">Vous devez remplir le champ obligatoire</Typography>
+                  <Typography sx={{ mt: 2, color: "red"}} variant="body1" align="center">Vous devez remplir les champs obligatoires</Typography>
                   : undefined}
             <div className="reg_btn_wrapper">
 

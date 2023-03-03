@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import {useMediaQuery} from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import Background from '../../images/Background.png'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -147,7 +148,8 @@ export default function AdminForm() {
     <div>
       <Container maxWidth="md" sx={{ mb: 5 }}>
         <img
-          src="../../images/activate-science.jpg"
+          src={Background}
+          alt="Background"
           style={{
             width: "100%",
             height: "100%",

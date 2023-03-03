@@ -48,19 +48,14 @@ export default function LoginForm() {
       />
       <Typography
         sx={{ mt: 5, color: "black" }}
-        variant={matchesSM ? "h3" : "h4"}
+        variant={matchesSM ? "h3" : "h5"}
         align="center"
       >
-        Sanofi Marcy l'Etoile
-        <br />
+          Bienvenue sur la page d'inscription de Sanofi Marcy l'Etoile Activate Science.
       </Typography>
-      <Typography variant="body2" align="center">16 mars 2023 de 9h à 17h</Typography>
+      <Typography sx={{mt:1}} variant="body2" align="center">Cet événement aura lieu le 16 mars 2023 de 9h à 17h. </Typography>
       <Typography sx={{ mt: 3 }} align="center">
-        Retrouvez les dernières innovations <br />
-        de nos fournisseurs partenaires,
-        <br />
-        permettant d’étendre vos recherches, <br />
-        rendre vos analyses plus efficientes et améliorer votre productivité.
+          C'est une excellente occasion pour vous d'en apprendre davantage sur les dernières innovations de nos partenaires, fournisseurs ainsi que d'acquérir une expérience de première main sur les équipements, consommables et réactifs présentés.
       </Typography>
       <Typography sx={{ mt: 2 }} align="center">
         Vous pourrez également profiter <br /> d’une présentation sur la
@@ -68,13 +63,10 @@ export default function LoginForm() {
         qui se déroulera de 10h30 à 11h30 (salle Auditorium Bat X South).
       </Typography>
       <Typography sx={{ mt: 2 }} align="center">
-        Afin de participer à cet évènement,
-        <br />
-        merci de vous inscrire en saisissant votre adresse e-mail ci-dessous.
-      </Typography>
-      <Typography sx={{ mt: 2 }} align="center">
-        Vous recevrez par e-mail un lien pour télécharger votre QR code unique
-        <br />à présenter le jour de l’évènement.
+          Veuillez vous pré-inscrire en saisissant votre adresse e-mail ci-dessous.
+          Cela vous permettra d'obtenir
+          le lien de votre code QR unique à utiliser le jour même (par exemple pour capturer des prospects)
+          lorsque vous visiterez les stands des fournisseurs.
       </Typography>
 
       <Box component="form" onSubmit={submitHandler}>

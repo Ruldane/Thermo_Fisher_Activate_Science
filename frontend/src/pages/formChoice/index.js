@@ -14,6 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Background from '../../images/Background.png'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -160,7 +161,8 @@ export default function ChoiceForm() {
   return (
     <Container maxWidth="md" sx={{ mb: 5, mt: 1 }}>
       <img
-        src="../../images/activate-science.jpg"
+        src={Background}
+        alt="background"
         style={{
           width: "100%",
           height: "100%",
@@ -236,7 +238,7 @@ export default function ChoiceForm() {
             <div className="reg_btn_wrapper">
 
               <button    disabled={!requestType} className={!requestType ? "grey_btn" : "blue_btn open_signup"} >
-                Validez votre demande
+                Validez votre demande.
               </button>
             </div>
             <RingLoader color="#18f6f2" loading={loading} size={150} />

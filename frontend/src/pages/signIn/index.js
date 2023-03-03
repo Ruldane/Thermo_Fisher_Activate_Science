@@ -73,13 +73,13 @@ export default function SignIn() {
           }}
         />
           <Typography sx={{ mt: -2, color: "black", pb: 2 }} variant="body1" align="center">
-              Inscrivez-vous dès maintenant <br />  à l'évènement Activate Science<br />Sanofi Marcy l'Etoile
+              Inscrivez-vous dès maintenant <br />  à l'évènement Activate Science<br />Sanofi Marcy l'Etoile du 16 mars 2023
             <br />
         </Typography>
       </Container>
       <Box
         sx={{
-          marginTop: 30,
+          marginTop: 25,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

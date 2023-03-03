@@ -54,7 +54,7 @@ const QRCodeImage = () => {
         variant={matchesSM ? "h3" : "body1"}
         align="center"
       >
-        Merci de vous être pré-enregistré. <br />
+        Merci de vous être pré-enregistré(e). <br />
       </Typography>
       <Typography variant="body1" sx={{ mt: 1, mb: 2 }} align="center">
         Téléchargez et sauvegardez votre QR code <br />

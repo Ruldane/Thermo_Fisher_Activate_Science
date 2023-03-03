@@ -1,6 +1,6 @@
 import Login from "./pages/login";
 import Profile from "./pages/profile";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import {Route, Routes, BrowserRouter, HashRouter, Link} from "react-router-dom";
 import Home from "./pages/home";
 import LoggedInRoutes from "./routes/LoggedInRoutes";
 import NotLoggedInRoutes from "./routes/NotLoggedInRoutes";

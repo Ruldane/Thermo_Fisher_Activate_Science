@@ -24,7 +24,7 @@ const Choice = () => {
         }}
       />
       <Typography sx={{ mt: 5, color: "black" }} variant="body1" align="center">
-        vSelectionnez un choix ci-dessous:
+        Sélectionnez un choix ci-dessous:
       </Typography>
       <Stack
         direction="column"

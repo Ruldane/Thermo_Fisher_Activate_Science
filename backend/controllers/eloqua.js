@@ -140,6 +140,9 @@ exports.registerActivateScience = async (req, res) => {
             'zipPostal': zipPostal,
             'country': country,
             'title': title,
+            'language':  'French',
+            'locale': 'fr_FR',
+            'marketingCountry': 'FR'
         }
     };
     request(options, function (error, response) {

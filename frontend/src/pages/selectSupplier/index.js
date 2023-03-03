@@ -111,7 +111,7 @@ const SelectSupplier = () => {
         <>
           <Button
             sx={{ mt: 1 }}
-            href={`/supplier/${email}/${supplier}`}
+            href={`../supplier/${email}/${supplier}`}
             variant="contained"
           >
             Validez votre sélection.

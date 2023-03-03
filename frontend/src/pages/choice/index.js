@@ -35,7 +35,7 @@ const Choice = () => {
       >
         <Button
           variant="contained"
-          href={`/choiceSupplier/${email}`}
+          href={`../choiceSupplier/${email}`}
           color="secondary"
           sx={{ width: "50%" }}
         >
@@ -43,7 +43,7 @@ const Choice = () => {
         </Button>
         <Button
           variant="contained"
-          href={`/admin/${email}`}
+          href={`/activate-science/20481/admin/${email}`}
           sx={{ width: "50%" }}
         >
           Organisateur

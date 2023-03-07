@@ -283,7 +283,7 @@ export default function SignIn() {
                         value={user?.businessPhone}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label" required>Addresse 1</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Addresse 1</InputLabel>
                     <TextField
                         margin="normal"
                         required

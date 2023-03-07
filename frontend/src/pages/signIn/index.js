@@ -9,13 +9,50 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import Background from '../../images/Background.png'
-import {InputLabel} from "@mui/material";
+import {FormControl, InputLabel, Select, MenuItem, useMediaQuery} from '@mui/material';
+
+const countries = [
+    'Autriche',
+    'Belgique',
+    'Danemark',
+    'Allemagne',
+    'Finland',
+    'France',
+    'Ireland',
+    'Italie',
+    'Pays-Bas',
+    'Norvège',
+    'Portugal',
+    'Espagne',
+    'Suède',
+    'Suisse',
+    'Royaume-Uni',
+];
+
 export default function SignIn() {
     const {email} = useParams();
 
     const [user, setUser] = useState("");
-    const navigate = useNavigate();
+    const [country, setCountry] = useState(user?.country === "FR" ? 'France' : "");
+    const [open, setOpen] = useState(false);
 
+    const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+    const matchesMS = useMediaQuery((theme) => theme.breakpoints.up("ms"));
+    const matchesLG = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+    const matchesLessSM = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+    const navigate = useNavigate();
+    const handleChangeCountry = (event) => {
+        setCountry(event.target.value);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
     const handleChange = (e) => {{
         setUser({
             ...user,
@@ -52,12 +89,13 @@ export default function SignIn() {
                 {"email": email},
             );
             setUser(data);
+            if(data.country === "FR") {
+                setCountry('France');
+            }
         } catch (error) {
             console.error(error);
         }
     };
-
-    console.log(user);
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -75,7 +113,7 @@ export default function SignIn() {
                     "city": user.city,
                     "address2": user.address2 ? user.address2 : "no address 2",
                     "zipPostal": user.zipPostal,
-                    "country": user.country,
+                    "country": country,
                     "title": user.title
                 }
             );
@@ -96,17 +134,28 @@ export default function SignIn() {
 
 
     return (
-        <Container component="main" maxWidth="sm">
+        <Container
+            component="main"
+            maxWidth={matchesLG ? "lg" :matchesMS ? "md": "sm"}
+            sx={{
+                background:"rgba(255, 255, 255, 0.2)",
+                borderRadius:"16px",
+                boxShadow:"0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter:"blur(5px)",
+                WebkitBackdropFilter:"blur(5px)",
+                border:"1px solid rgba(255, 255, 255, 0.3)"
+            }}
+        >
             <CssBaseline />
             <Container
-                maxWidth="sm"
+                maxWidth={matchesLG ? "lg" :matchesMS ? "md": "sm"}
                 fixed
                 sx={{
                     position: "fixed",
                     zIndex: 99999,
                     marginLeft: "-0.98rem",
                     top: 0,
-                    backgroundColor: "white",
+
                 }}
             >
                 <img
@@ -118,88 +167,114 @@ export default function SignIn() {
                         objectPosition: "center",
                     }}
                 />
-                <Typography sx={{ mt: -2, color: "black", pb: 2 }} variant="body1" align="center">
-                    Inscrivez-vous dès maintenant <br />  à l'évènement Activate Science<br />Sanofi Marcy l'Etoile du 16 mars 2023
+                {matchesSM ? (
+                    <Typography sx={{ mt: -2, color: "black", pb: 2 }} variant="h5" align="center">
+                        Inscrivez-vous dès maintenant  à l'évènement Activate Science Evotec Toulouse du 04 avril 2023
+                        <br />
+                    </Typography>
+                )  :            <Typography sx={{ mt: -2, color: "black", pb: 2 }} variant="body1" align="center">
+                    Inscrivez-vous dès maintenant <br />  à l'évènement Activate Science<br />Evotec Toulouse du 04 avril 2023
                     <br />
-                </Typography>
+                </Typography>}
             </Container>
             <Box
                 sx={{
-                    marginTop: 25,
+                    marginTop: matchesMS ? 45 : matchesSM ? 30 : matchesLessSM ? 32 : 0,
                     display: "flex",
                     flexDirection: "column",
+                    justifyContent: "center",
                     alignItems: "center",
+                    width: 1
                 }}
             >
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <InputLabel id="test-select-label" required>Civilité</InputLabel>
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    noValidate       sx={{
+                    marginTop: matchesMS ? 40 : matchesSM ? 30 : matchesLessSM ? 32 : 0,
+                    display: matchesSM ?  "flex" : undefined,
+                    flexDirection: matchesSM ? "column" : undefined,
+                    justifyContent: matchesSM ? "center" : undefined,
+                    alignItems: matchesSM ? "center" : undefined,
+                    width: "100%",
+                    mt: 1
+                }}
+                >
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Civilité</InputLabel>
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
                         id="title"
                         name="title"
                         autoFocus
                         value={user?.title}
                         onChange={handleChange}
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? "80%" : undefined}}
                     />
-                    <InputLabel id="test-select-label" required>Adresse email</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Adresse email</InputLabel>
                     <TextField
                         margin="normal"
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="emailAddress"
                         name="emailAddress"
                         autoFocus
                         onChange={handleChange}
                         value={user?.emailAddress}
                     />
-                    <InputLabel id="test-select-label">Numéro de compte Thermofisher</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label">Numéro de compte Thermofisher</InputLabel>
                     <TextField
                         margin="normal"
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         name="accountNumber"
                         type="text"
                         id="accountNumber"
                         onChange={handleChange}
                         value={user?.Account_Number}
                     />
-                    <InputLabel id="test-select-label" required>Prénom</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Prénom</InputLabel>
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="firstName"
                         name="firstName"
                         autoFocus
                         value={user?.firstName}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label" required>Nom</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Nom</InputLabel>
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="lastName"
                         name="lastName"
                         autoFocus
                         value={user?.lastName}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label" required>Entreprise</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Entreprise</InputLabel>
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="company"
                         name="company"
                         autoFocus
                         value={user?.Company_name}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label">Téléphone de l'entreprise</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label">Téléphone de l'entreprise</InputLabel>
                     <TextField
                         margin="normal"
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="businessPhone"
                         name="businessPhone"
                         autoFocus
@@ -211,7 +286,8 @@ export default function SignIn() {
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="address1"
                         name="address1"
                         autoFocus
@@ -219,11 +295,13 @@ export default function SignIn() {
                         value={user?.address1}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label" required>Ville</InputLabel>
+
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Ville</InputLabel>
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="city"
                         name="city"
                         autoFocus
@@ -231,10 +309,11 @@ export default function SignIn() {
                         value={user?.city}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label">Adresse 2</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}}  id="test-select-label">Adresse 2</InputLabel>
                     <TextField
                         margin="normal"
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="address2"
                         name="address2"
                         autoFocus
@@ -242,11 +321,12 @@ export default function SignIn() {
                         value={user?.address2}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label" required>Code Postal</InputLabel>
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Code Postal</InputLabel>
                     <TextField
                         margin="normal"
                         required
-                        fullWidth
+                        fullWidth={!matchesMS}
+                        sx={{width: matchesMS ? 0.8 : undefined}}
                         id="zipPostal"
                         name="zipPostal"
                         autoFocus
@@ -254,18 +334,28 @@ export default function SignIn() {
                         value={user?.zipPostal}
                         onChange={handleChange}
                     />
-                    <InputLabel id="test-select-label" required>Pays</InputLabel>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="country"
-                        autoFocus
-                        name="country"
-                        type="text"
-                        value={user?.country}
-                        onChange={handleChange}
-                    />
+
+                    <InputLabel sx={{ marginLeft:  matchesMS ? "10%" : undefined,  marginRight: matchesMS ? 'auto' : undefined}} id="test-select-label" required>Pays</InputLabel>
+                    <FormControl variant="outlined" sx={{  width: matchesMS ? "80%" : "100%", mt: 1 }}>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            open={open}
+                            onClose={handleClose}
+                            onOpen={handleOpen}
+                            value={country}
+                            onChange={handleChangeCountry}
+                        >
+                            {countries.sort().map((country) => (
+                                <MenuItem
+                                    key={country}
+                                    value={country}
+                                >
+                                    {country}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     { !user.title || !user.emailAddress || !user.firstName || !user.lastName
                     || !user.company || !user.address1 || !user.city || !user.zipPostal   ?
                         <Typography sx={{ mt: 2, color: "red", pb: 2 }} variant="body1" align="center">Veuillez remplir les champs obligatoires</Typography>
@@ -274,7 +364,7 @@ export default function SignIn() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 3, mb: 2, width: matchesMS? "80%" : undefined}}
                         disabled={ !user.title || !user.emailAddress || !user.firstName || !user.lastName
                             || !user.company || !user.address1 || !user.city || !user.zipPostal || !user.country }
                     >

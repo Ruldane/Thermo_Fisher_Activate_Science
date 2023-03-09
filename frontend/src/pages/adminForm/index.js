@@ -38,23 +38,26 @@ export default function AdminForm() {
     const navigate = useNavigate();
     const { email } = useParams();
     const [open, setOpen] = useState(false);
-    const [submit, setSubmit] = useState(false);
     const [user, setUser] = useState(userInfos);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(false);
     const [trigger, setTrigger] = useState(false);
+    const [submit, setSubmit] = useState(false);
 
     const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
     const getUserByEmail = async () => {
+        setLoading(true)
         try {
             const { data } = await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/getUserByEmail`,
                 {"email": email},
             );
             setUser(data);
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             console.error(error);
         }
     }
@@ -212,7 +215,6 @@ export default function AdminForm() {
                <LinearProgress />
            </Box>
                 </Container>
-
             ) : (
                 <Container maxWidth="md" sx={{ mb: 5 }}>
                     <img
@@ -234,7 +236,7 @@ export default function AdminForm() {
                         Sanofi Marcy l'Etoile Activate Science.
                     </Typography>
                     <Typography sx={{ color: "black" }} variant="body1" align="center">
-                        <Button onClick={deleteRoleAdmin}> Cliquez ici</Button> si vous pas l'organisateur.
+                        <Button onClick={deleteRoleAdmin}> Cliquez ici</Button> si vous n'êtes pas l'organisateur.
                     </Typography>
                     <Formik
                         enableReinitialize

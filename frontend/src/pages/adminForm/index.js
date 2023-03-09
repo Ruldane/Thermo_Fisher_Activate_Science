@@ -282,6 +282,7 @@ export default function AdminForm() {
                                     size="small"
                                     onClick={() => {
                                         setOpen(false);
+                                        setTrigger(true)
                                     }}
                                 >
                                     <CloseIcon fontSize="inherit" />
@@ -293,7 +294,8 @@ export default function AdminForm() {
                             Merci d'avoir enregistré la présence de {`${firstName} ${lastName}`}  à cet évènement.<br/>
                             Veuillez fermer cette fenêtre et scanner le QR code du client suivant. <br />
                             <Button  sx={{color:"white"}} onClick={() => {
-                                setOpen(false); setTrigger(true)
+                                setOpen(false);
+                                setTrigger(true)
                             }}>
                                 Fermer cette fenêtre
                             </Button>

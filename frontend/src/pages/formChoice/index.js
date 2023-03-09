@@ -13,7 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
-import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Background from '../../images/Background.png'
 import Button from "@mui/material/Button";
@@ -331,6 +330,7 @@ export default function ChoiceForm() {
                                   size="small"
                                   onClick={() => {
                                       setOpen(false);
+                                      setTrigger(true)
                                   }}
                               >
                                   <CloseIcon fontSize="inherit" />
@@ -343,7 +343,8 @@ export default function ChoiceForm() {
                           <br/>
                           Veuillez fermer cette fenêtre et scanner le QR code du client suivant. <br />
                           <Button  sx={{color:"white"}} onClick={() => {
-                              setOpen(false); setTrigger(true)
+                              setOpen(false);
+                              setTrigger(true)
                           }}>
                               Fermez cette fenêtre
                           </Button>

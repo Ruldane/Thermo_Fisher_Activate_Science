@@ -1,15 +1,19 @@
 import * as React from "react";
-import { createTheme } from "@mui/material/styles";
+import {useEffect, useState} from "react";
+import {createTheme} from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useParams } from "react-router-dom";
-import { useMediaQuery } from "@mui/material";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useMediaQuery} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Background from '../../images/Background.png'
+import {setSupplierEvent} from "../../actions/supplierActions";
+import {removeRoleEvent} from "../../actions/roleActions";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -47,11 +51,24 @@ function getStyles(name, supplier, theme) {
 }
 
 const SelectSupplier = () => {
-  const { email } = useParams();
-  const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
-  const [supplier, setSupplier] = React.useState([]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { email } = useParams();
+    const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+    const [supplier, setSupplier] = useState([]);
+    // get supplier from redux store
+    const supplierEvent = useSelector(state => state.supplier);
 
-  const handleChange = (event) => {
+
+    const onSubmitHandler = () => {
+        // Dispatch the setSupplier action
+        const supplierEventJoin = supplier.join(",");
+        const supplierEvent = supplierEventJoin.split(",");
+        dispatch(setSupplierEvent(supplierEvent[0]));
+        navigate(`../supplier/${email}/${supplier}`)
+    }
+
+    const handleChange = (event) => {
     const {
       target: { value },
     } = event;
@@ -60,6 +77,21 @@ const SelectSupplier = () => {
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+    const deleteRoleSupplier = () => {
+        dispatch(removeRoleEvent());
+        navigate(`../choice/${email}`)
+    }
+
+
+    useEffect(() => {
+        // if supplierEvent is not empty redirect to final form
+        if(supplierEvent.supplier) {
+            const supplierEventRedirect = supplierEvent.supplier
+            navigate(`../supplier/${email}/${supplierEventRedirect}`)
+        }
+    },[supplierEvent])
+
 
   return (
     <Container maxWidth="md" sx={{ mb: 5, mt: 1 }}>
@@ -77,6 +109,9 @@ const SelectSupplier = () => {
         Veuillez sélectionner le fournisseur <br />
         dans la liste ci-dessous.
       </Typography>
+        <Typography sx={{ color: "black" }} variant="body1" align="center">
+           <Button onClick={deleteRoleSupplier}> Cliquez ici</Button> si vous n'êtes un un fournisseur.
+        </Typography>
       <FormControl sx={{ width: "100%", mt: 3 }}>
         <Select
           displayEmpty
@@ -111,7 +146,7 @@ const SelectSupplier = () => {
         <>
           <Button
             sx={{ mt: 1 }}
-            href={`../supplier/${email}/${supplier}`}
+            onClick={onSubmitHandler}
             variant="contained"
           >
             Validez votre sélection.

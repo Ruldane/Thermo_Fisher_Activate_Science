@@ -1,15 +1,41 @@
-import { Link, useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./style.css";
 import * as React from "react";
+import {useEffect} from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { useMediaQuery } from "@mui/material";
+import {useMediaQuery} from "@mui/material";
 import Background from "../../images/Background.png"
+import {useDispatch, useSelector} from "react-redux";
+import {setRoleEvent} from "../../actions/roleActions";
+
 const Choice = () => {
   const { email } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+  const roleEvent = useSelector(state => state.role);
+  const sendToAdmin = () => {
+      dispatch(setRoleEvent("admin"));
+      navigate(`../admin/${email}/`)
+  }
+    const sendToSupplier = () => {
+        dispatch(setRoleEvent("supplier"));
+        navigate(`../choiceSupplier/${email}/`)
+    }
+
+    useEffect(() => {
+        const role = JSON.parse(localStorage.getItem("role"));
+        if (role && role === "admin") {
+            navigate(`../admin/${email}/`)
+        } else if (role && role === "supplier") {
+            navigate(`../choiceSupplier/${email}/`)
+        }
+    }, []);
+
+
 
   return (
     <Container maxWidth="md" sx={{ mb: 5, mt: 1 }}>
@@ -35,7 +61,7 @@ const Choice = () => {
       >
         <Button
           variant="contained"
-          href={`../choiceSupplier/${email}`}
+          onClick={sendToSupplier}
           color="secondary"
           sx={{ width: "50%" }}
         >
@@ -43,7 +69,7 @@ const Choice = () => {
         </Button>
         <Button
           variant="contained"
-          href={`/activate-science/20481/admin/${email}`}
+          onClick={sendToAdmin}
           sx={{ width: "50%" }}
         >
           Organisateur

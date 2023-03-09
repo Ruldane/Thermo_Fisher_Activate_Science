@@ -1,8 +1,9 @@
 import {Form, Formik} from "formik";
 import React, {useEffect, useState} from "react";
+import {useDispatch} from 'react-redux';
 import * as Yup from "yup";
 import RingLoader from "react-spinners/RingLoader";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./style.css";
 import Container from "@mui/material/Container";
@@ -15,6 +16,8 @@ import Box from "@mui/material/Box";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Background from '../../images/Background.png'
+import Button from "@mui/material/Button";
+import {removeSupplier} from "../../actions/supplierActions";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -46,7 +49,9 @@ export default function ChoiceForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("hello");
   const [loading, setLoading] = useState(false);
-  const [requestType, setRequestType] = React.useState("");
+  const [requestType, setRequestType] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
@@ -75,8 +80,6 @@ export default function ChoiceForm() {
             setUser({...user, comments: ""});
         }
     }, []);
-
-  console.log(user, "user");
 
   const {
     emailAddress,
@@ -138,6 +141,11 @@ export default function ChoiceForm() {
         setOpen(false);
     };
 
+    const deleteSupplier = () => {
+        dispatch(removeSupplier());
+        navigate(`../choiceSupplier/${email}`)
+    }
+
   const registerSubmit = async () => {
       setLoading(true);
           try {
@@ -172,7 +180,11 @@ export default function ChoiceForm() {
         }}
       />
       <Typography sx={{ mt: 5, color: "black" }} variant="body1" align="center">
-        Fournisseur: {supplier}
+        Fournisseur: {supplier.replace(/[^a-zA-Z ]/g, "")} <br />
+          <Button onClick={deleteSupplier}>
+          Cliquez ici
+      </Button>
+          pour changer de fournisseur.
       </Typography>
       <Typography sx={{ mt: 1, color: "black" }} variant="body1" align="center">
         Client: {firstName} {lastName}

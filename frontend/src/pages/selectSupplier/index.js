@@ -38,6 +38,10 @@ const suppliers = [
   "THERMO BID AND GSG",
   "THERMO LE - LABORATORY EQUIPMENT",
   "THERMO LPE - LABORATORY PLASTICS",
+    "ERLAB",
+    "GREINER BIO ONE",
+    "HEIDOLPH",
+    "ENZO"
 ];
 const theme = createTheme();
 

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {useMediaQuery} from "@mui/material";
 import Alert from "@mui/material/Alert";
-import Background from '../../images/Background.png'
+import Background from '../../images/Background.webp'
 import CloseIcon from '@mui/icons-material/Close';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';

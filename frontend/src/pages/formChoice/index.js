@@ -14,7 +14,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import MuiAlert from '@mui/material/Alert';
-import Background from '../../images/Background.png'
+import Background from '../../images/Background.webp'
 import Button from "@mui/material/Button";
 import {removeSupplier} from "../../actions/supplierActions";
 import LinearProgress from "@mui/material/LinearProgress";

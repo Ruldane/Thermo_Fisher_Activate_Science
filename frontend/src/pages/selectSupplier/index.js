@@ -11,7 +11,7 @@ import {useMediaQuery} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Background from '../../images/Background.png'
+import Background from '../../images/Background.webp'
 import {setSupplierEvent} from "../../actions/supplierActions";
 import {removeRoleEvent} from "../../actions/roleActions";
 

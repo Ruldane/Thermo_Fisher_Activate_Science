@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import {useMediaQuery} from "@mui/material";
-import Background from "../../images/Background.png"
+import Background from "../../images/Background.webp"
 import {useDispatch, useSelector} from "react-redux";
 import {setRoleEvent} from "../../actions/roleActions";
 

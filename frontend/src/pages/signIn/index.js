@@ -9,7 +9,9 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import Background from '../../images/Background.png'
-import {FormControl, InputLabel, Select, MenuItem, useMediaQuery} from '@mui/material';
+import {FormControl, InputLabel, Select, MenuItem, useMediaQuery, FormControlLabel} from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const countries = [
     'Autriche',
@@ -33,8 +35,9 @@ export default function SignIn() {
     const {email} = useParams();
 
     const [user, setUser] = useState("");
-    const [country, setCountry] = useState(user?.country === "FR" ? 'France' : "");
+    const [country, setCountry] = useState(user?.country === "FR" ? 'France' : "France");
     const [open, setOpen] = useState(false);
+    const [checked, setChecked] = useState(false);
 
     const matchesSM = useMediaQuery((theme) => theme.breakpoints.up("sm"));
     const matchesMS = useMediaQuery((theme) => theme.breakpoints.up("ms"));
@@ -58,6 +61,7 @@ export default function SignIn() {
             ...user,
             [e.target.name]: e.target.value
         });
+        console.log(user);
     }}
 
     const checkIfUserRegister = async (checkEmail) => {
@@ -82,6 +86,10 @@ export default function SignIn() {
         }
     }, []);
 
+    const handleChangeChecked = (event) => {
+        setChecked(!checked);
+    };
+
     const getUserByEmail = async () => {
         try {
             const { data } = await axios.post(
@@ -98,6 +106,7 @@ export default function SignIn() {
     };
     const handleSubmit = async (event) => {
         event.preventDefault();
+
 
         try {
             const { data } = await axios.post(
@@ -357,8 +366,17 @@ export default function SignIn() {
                             ))}
                         </Select>
                     </FormControl>
+                    <FormControl sx={{ marginLeft:  matchesMS? "10%" : undefined,  marginRight: matchesMS? '10%' : 0,       mt: 4 }}>
+                        <Typography sx={{ mt: -2, color: "black", pb: 2 }} variant="body2">
+                        <Checkbox checked={checked} onChange={handleChangeChecked} />
+                            Veuillez cocher cette case pour recevoir des informations au sujet des produits, services, offres exclusives et promotions de Fisher Scientific et des marques de nos sociétés sœur au sein du groupe Thermo
+                            Fisher Scientific (notamment Thermo Scientific™, Applied Biosystems™, Invitrogen™, Gibco™, Ion Torrent™, Unity Lab Services™). Votre confidentialité est importante à nos yeux ; c’est pourquoi toutes les
+                            informations personnelles que vous nous fournirrez seront utilisées conformément à notre <a rel="noreferrer"  target="_blank" href="https://www.thermofisher.com/fr/fr/home/global/privacy-policy.html.html.html" style={{color: "blue", fontWeight: 400, fontSize: "0.875rem"}}> politique de confidentialité  </a> et vous aurez la possibilité de vous désinscrire à tout moment de nos communications
+                            marketing futures.
+                        </Typography>
+                    </FormControl>
                     { !user.title || !user.emailAddress || !user.firstName || !user.lastName
-                    || !user.company || !user.address1 || !user.city || !user.zipPostal   ?
+                    || !user.company || !user.address1 || !user.city || !user.zipPostal || !country  ?
                         <Typography sx={{ mt: 2, color: "red", pb: 2 }} variant="body1" align="center">Veuillez remplir les champs obligatoires</Typography>
                         : undefined}
                     <Button
@@ -367,7 +385,7 @@ export default function SignIn() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2, width: matchesMS? "80%" : undefined}}
                         disabled={ !user.title || !user.emailAddress || !user.firstName || !user.lastName
-                            || !user.company || !user.address1 || !user.city || !user.zipPostal || !user.country }
+                            || !user.company || !user.address1 || !user.city || !user.zipPostal || !country }
                     >
                         S'inscrire
                     </Button>
